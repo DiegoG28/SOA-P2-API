@@ -67,6 +67,20 @@ namespace SOA_P2.Controllers
             return Ok(message);
         }
 
+        [HttpPost("Assets")]
+        public IActionResult AddAssetsToEmployee([FromBody] List<AddEmployeeAssetRequest> assets)
+        {
+            try
+            {
+                _employeeService.AddAssetsToEmployee(assets);
+                return Ok("Activos añadidos correctamente al empleado.");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Hubo un error al añadir los activos al empleado.");
+            }
+        }
+
     }
 }
 

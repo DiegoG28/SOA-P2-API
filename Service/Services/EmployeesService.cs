@@ -89,6 +89,20 @@ namespace Service.Services
             }
         }
 
+        public void AddAssetsToEmployee(List<AddEmployeeAssetRequest> assets)
+        {
+            var employeesHasAssets = assets.Select(asset => new EmployeesHasAssets
+            {
+                EmployeeId = asset.EmployeeId,
+                AssetId = asset.AssetId,
+                AssignamentDate = DateTime.Now,
+                DeliveryDate = asset.DeliveryDate,
+                ReleaseDate = asset.ReleaseDate
+            }).ToList();
+
+            employeesRepository.AddAssetsToEmployee(employeesHasAssets);
+        }
+
         public Employees CreateEmployee(CreateEmployeeRequest newEmployee)
         {
             try
@@ -186,7 +200,6 @@ namespace Service.Services
 
             return employeeViewModel;
         }
-
     }
 }
 

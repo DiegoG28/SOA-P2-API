@@ -127,13 +127,30 @@ namespace Repository.DAO
             }
 
             employee.EmployeesHasAssets.Remove(employeeAsset);
+
+            // Actualizar el estado de los activos para que esté disponible
+            var asset = _context.Assets.FirstOrDefault(a => a.Id == assetId);
+            if (asset != null)
+            {
+                asset.Status = true;
+            }
+
             _context.SaveChanges();
 
             return true;
         }
 
+
         public void AddAssetsToEmployee(List<EmployeesHasAssets> assets)
         {
+            // Actualizar el estado de los activos para que no estén disponibles
+            var assetIds = assets.Select(a => a.AssetId).ToList();
+            var updatedAssets = _context.Assets.Where(a => assetIds.Contains(a.Id)).ToList();
+            foreach (var asset in updatedAssets)
+            {
+                asset.Status = false;
+            }
+
             _context.EmployeesHasAssets.AddRange(assets);
             _context.SaveChanges();
         }
