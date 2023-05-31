@@ -70,13 +70,11 @@ namespace Repository.DAO
 
             asset.Status = true;
 
-            var employeeAsset = _context.EmployeesHasAssets.FirstOrDefault(eha => eha.AssetId == assetId);
-            if (employeeAsset == null)
+            var employeeAssets = _context.EmployeesHasAssets.Where(eha => eha.AssetId == assetId).ToList();
+            foreach (var employeeAsset in employeeAssets)
             {
-                return false; // El activo no está asignado a ningún empleado
+                employeeAsset.ReleaseDate = DateTime.Now;
             }
-
-            employeeAsset.ReleaseDate = DateTime.Now;
 
             _context.SaveChanges();
 
