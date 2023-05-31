@@ -54,6 +54,20 @@ namespace SOA_P2.Controllers
                 return NotFound("El activo no existe.");
             }
         }
+
+        [HttpPatch("{assetId}/release")]
+        public IActionResult ReleaseAsset(int assetId)
+        {
+            bool released = _assetService.ReleaseAsset(assetId);
+            if (released)
+            {
+                return Ok("Activo liberado exitosamente.");
+            }
+            else
+            {
+                return NotFound("El activo no está asignado a ningún empleado o no existe.");
+            }
+        }
     }
 }
 

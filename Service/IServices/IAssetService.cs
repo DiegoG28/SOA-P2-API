@@ -10,7 +10,7 @@ namespace Service.IServices
 		List<AssetViewModel> GetAssets(bool? statusFilter);
 		public Assets CreateAsset(CreateAssetRequest asset);
 		public bool DeleteAsset(int assetId);
-
+		public bool ReleaseAsset(int assetId);
     }
 }
 

@@ -29,7 +29,7 @@ namespace Domain.Entities
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]

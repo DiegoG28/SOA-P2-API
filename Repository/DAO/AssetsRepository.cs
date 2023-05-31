@@ -27,9 +27,13 @@ namespace Repository.DAO
             return query.ToList();
         }
 
+        public Assets GetAssetById(int assetId)
+        {
+            return _context.Assets.FirstOrDefault(a => a.Id == assetId);
+        }
+
         public Assets CreateAsset(Assets asset)
         {
-
             _context.Assets.Add(asset);
             _context.SaveChanges();
 
@@ -38,7 +42,7 @@ namespace Repository.DAO
 
         public bool DeleteAsset(int assetId)
         {
-            var asset = _context.Assets.FirstOrDefault(a => a.Id == assetId);
+            var asset = GetAssetById(assetId);
             if (asset == null)
             {
                 return false; // El activo no existe
@@ -51,6 +55,29 @@ namespace Repository.DAO
             }
 
             _context.Assets.Remove(asset);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public bool ReleaseAsset(int assetId)
+        {
+            var asset = GetAssetById(assetId);
+            if (asset == null)
+            {
+                return false; // El activo no existe
+            }
+
+            asset.Status = true;
+
+            var employeeAsset = _context.EmployeesHasAssets.FirstOrDefault(eha => eha.AssetId == assetId);
+            if (employeeAsset == null)
+            {
+                return false; // El activo no está asignado a ningún empleado
+            }
+
+            employeeAsset.ReleaseDate = DateTime.Now;
+
             _context.SaveChanges();
 
             return true;

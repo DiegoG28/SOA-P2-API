@@ -97,7 +97,7 @@ namespace Service.Services
                 AssetId = asset.AssetId,
                 AssignamentDate = DateTime.Now,
                 DeliveryDate = asset.DeliveryDate,
-                ReleaseDate = asset.ReleaseDate
+                ReleaseDate = null,
             }).ToList();
 
             employeesRepository.AddAssetsToEmployee(employeesHasAssets);
@@ -137,7 +137,7 @@ namespace Service.Services
                         AssetId = asset.Id,
                         AssignamentDate = DateTime.Now,
                         DeliveryDate = asset.DeliveryDate,
-                        ReleaseDate = asset.ReleaseDate
+                        ReleaseDate = null,
                     }).ToList();
 
                     employeesRepository.AddAssetsToEmployee(employeeAssets);

@@ -7,7 +7,7 @@ namespace Domain.Entities.ViewModels
         public string Name { get; set; }
         public DateTime AssignmentDate { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
     }
 }
 

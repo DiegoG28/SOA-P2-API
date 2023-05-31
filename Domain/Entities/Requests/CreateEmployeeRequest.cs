@@ -17,7 +17,6 @@ namespace Domain.Entities.Requests
     public class AssetAssignment
     {
         public int Id { get; set; }
-        public DateTime ReleaseDate { get; set; }
         public DateTime DeliveryDate { get; set; }
     }
 

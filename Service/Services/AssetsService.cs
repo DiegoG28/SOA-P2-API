@@ -69,8 +69,31 @@ namespace Service.Services
 
         public bool DeleteAsset(int assetId)
         {
-            return assetsRepository.DeleteAsset(assetId);
+            try
+            {
+                return assetsRepository.DeleteAsset(assetId);
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
         }
+
+        public bool ReleaseAsset(int assetId)
+        {
+            try
+            {
+                return assetsRepository.ReleaseAsset(assetId);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
+        }
+
 
     }
 }
