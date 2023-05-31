@@ -36,6 +36,26 @@ namespace Repository.DAO
             return asset;
         }
 
+        public bool DeleteAsset(int assetId)
+        {
+            var asset = _context.Assets.FirstOrDefault(a => a.Id == assetId);
+            if (asset == null)
+            {
+                return false; // El activo no existe
+            }
+
+            var assetEmployees = _context.EmployeesHasAssets.Where(eha => eha.AssetId == assetId).ToList();
+            foreach (var assetEmployee in assetEmployees)
+            {
+                _context.EmployeesHasAssets.Remove(assetEmployee);
+            }
+
+            _context.Assets.Remove(asset);
+            _context.SaveChanges();
+
+            return true;
+        }
+
     }
 }
 

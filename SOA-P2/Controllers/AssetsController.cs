@@ -6,10 +6,10 @@ using Service.IServices;
 
 namespace SOA_P2.Controllers
 {
-	[ApiController]
-	[Route("[controller]")]
-	public class AssetsController : Controller
-	{
+    [ApiController]
+    [Route("[controller]")]
+    public class AssetsController : Controller
+    {
 
         private readonly IAssetService _assetService;
 
@@ -39,6 +39,20 @@ namespace SOA_P2.Controllers
                 return BadRequest("No se pudo crear el activo.");
             }
             return BadRequest("Datos de activo inválidos.");
+        }
+
+        [HttpDelete("{assetId}")]
+        public IActionResult DeleteAsset(int assetId)
+        {
+            bool result = _assetService.DeleteAsset(assetId);
+            if (result)
+            {
+                return Ok("Activo eliminado correctamente.");
+            }
+            else
+            {
+                return NotFound("El activo no existe.");
+            }
         }
     }
 }

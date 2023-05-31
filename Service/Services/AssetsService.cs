@@ -67,6 +67,11 @@ namespace Service.Services
             }
         }
 
+        public bool DeleteAsset(int assetId)
+        {
+            return assetsRepository.DeleteAsset(assetId);
+        }
+
     }
 }
 
