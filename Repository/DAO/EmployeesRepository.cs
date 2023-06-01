@@ -104,12 +104,25 @@ namespace Repository.DAO
                 return false;
             }
 
+            var assets = _context.EmployeesHasAssets
+                .Where(eha => eha.EmployeeId == employeeId)
+                .Select(eha => eha.Asset)
+                .ToList();
+
+            foreach (var asset in assets)
+            {
+                asset.Status = true;
+            }
+
             _context.EmployeesHasAssets.RemoveRange(employee.EmployeesHasAssets);
+
             _context.Employees.Remove(employee);
+
             _context.SaveChanges();
 
             return true;
         }
+
 
         public bool RemoveAssetFromEmployee(int employeeId, int assetId)
         {
