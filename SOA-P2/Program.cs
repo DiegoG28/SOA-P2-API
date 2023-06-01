@@ -11,23 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration configuration = builder.Configuration;
 
-builder.Services.AddDbContext<ApplicationDbContext>
-    (options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IEmployeeService, EmployeesService>();
 builder.Services.AddTransient<IAssetService, AssetsService>();
-
-
-// Add services to the container.
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -45,5 +41,31 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Obtiene la hora específica en la que deseas ejecutar la tarea
+TimeSpan targetTime = new TimeSpan(19, 15, 0); // 6:00 PM
+
+// Calcula el tiempo de espera hasta la próxima ejecución
+TimeSpan timeUntilTarget = targetTime - DateTime.Now.TimeOfDay;
+if (timeUntilTarget < TimeSpan.Zero)
+{
+    timeUntilTarget = timeUntilTarget.Add(TimeSpan.FromDays(1)); // Ejecutar en la próxima fecha
+}
+
+// Crea un temporizador que ejecutará la tarea en la hora específica
+Timer timer = new Timer(_ =>
+{
+    // Lógica de la tarea a ejecutar
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var emailService = services.GetRequiredService<IEmailService>();
+        emailService.SendReminderEmails();
+    }
+}, null, timeUntilTarget, Timeout.InfiniteTimeSpan);
+
+
 app.Run();
+
+timer.Dispose();
+
 
