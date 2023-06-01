@@ -41,10 +41,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Obtiene la hora específica en la que deseas ejecutar la tarea
-TimeSpan targetTime = new TimeSpan(19, 15, 0); // 6:00 PM
+TimeSpan targetTime = new TimeSpan(19, 54, 50);
 
-// Calcula el tiempo de espera hasta la próxima ejecución
 TimeSpan timeUntilTarget = targetTime - DateTime.Now.TimeOfDay;
 if (timeUntilTarget < TimeSpan.Zero)
 {
