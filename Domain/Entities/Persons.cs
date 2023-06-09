@@ -34,6 +34,9 @@ namespace Domain.Entities
 		[Required]
 		public string Email { get; set; }
 
+        [StringLength(30)]
+        public string Password { get; set; }
+
         [JsonIgnore]
         public virtual Employees Employees { get; set; }
 

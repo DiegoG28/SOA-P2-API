@@ -17,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddTransient<IEmployeeService, EmployeesService>();
 builder.Services.AddTransient<IAssetService, AssetsService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -41,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-TimeSpan targetTime = new TimeSpan(19, 54, 50);
+TimeSpan targetTime = new TimeSpan(17, 40, 00);
 
 TimeSpan timeUntilTarget = targetTime - DateTime.Now.TimeOfDay;
 if (timeUntilTarget < TimeSpan.Zero)

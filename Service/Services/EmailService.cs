@@ -6,6 +6,8 @@ using System.Net.Mail;
 using System.Text;
 using Repository.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
 
 namespace Service.Services
 {
@@ -13,12 +15,13 @@ namespace Service.Services
     {
         private readonly IConfiguration configuration;
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<EmailService> _logger;
 
-
-        public EmailService(IConfiguration configuration, ApplicationDbContext context)
+        public EmailService(IConfiguration configuration, ApplicationDbContext context, ILogger<EmailService> logger)
         {
             _context = context;
             this.configuration = configuration;
+            _logger = logger;
         }
 
         public void SendReminderEmails()
@@ -30,7 +33,7 @@ namespace Service.Services
                 .Where(eha => eha.DeliveryDate <= deliveryDateLimit)
                 .ToList();
 
-            Console.WriteLine("Accesing to SendReminder");
+            _logger.LogInformation("Accediendo a SendReminder");
 
             foreach (var employeeAsset in employeesToRemind)
             {

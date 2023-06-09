@@ -38,6 +38,15 @@ namespace Repository.DAO
             return employee;
         }
 
+        public Employees ValidateEmployeeLogin(string email, string password)
+        {
+            var employee = _context.Employees
+                .Include(e => e.Person)
+                .SingleOrDefault(e => e.Person.Email == email && e.Person.Password == password);
+
+            return employee;
+        }
+
         public Employees UpdateEmployee(int employeeId, EditEmployeeRequest changes)
         {
             var employee = GetEmployeeById(employeeId);
