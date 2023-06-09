@@ -56,7 +56,6 @@ namespace Service.Services
 
         public void SendSmtpEmail(string recipient, string subject, string body)
         {
-            Console.WriteLine(recipient);
             string senderEmail = configuration["GmailConfig:SenderSmtpEmail"];
             string senderName = configuration["GmailConfig:SenderSmtpName"];
             string senderPassword = configuration["GmailConfig:SenderSmtpPassword"];

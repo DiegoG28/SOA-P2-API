@@ -22,16 +22,7 @@ namespace SOA_P2.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            // Enviar correo electrónico
-            var subject = "Activo próximo a entregar";
-            var htmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./../../../Reminder.html");
-            var htmlBody = System.IO.File.ReadAllText(htmlFilePath);
-
-            var recipient = "diegogutcat28@gmail.com";
-            _emailService.SendSmtpEmail(recipient, subject, htmlBody);
-            
-
+            _emailService.SendReminderEmails();
             return Ok("Ok");
         }
     }
