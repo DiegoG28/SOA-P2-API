@@ -22,7 +22,7 @@ namespace SOA_P2.Controllers
 
             if (!isValidUser)
             {
-                return Ok("Acceso incorrecto");
+                return Unauthorized("Acceso incorrecto");
             }
 
             return Ok("Acceso correcto");

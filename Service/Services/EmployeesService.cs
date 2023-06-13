@@ -113,7 +113,8 @@ namespace Service.Services
                     LastName = newEmployee.LastName,
                     CURP = newEmployee.CURP,
                     BirthDate = newEmployee.BirthDate,
-                    Email = newEmployee.Email
+                    Email = newEmployee.Email,
+                    Password = ""
                 };
 
                 var createdPerson = personsRepository.CreatePerson(person);
