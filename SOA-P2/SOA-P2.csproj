@@ -28,4 +28,18 @@
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Properties\ServiceDependencies\p2-soa-api - Web Deploy\apis1.arm.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Properties\ServiceDependencies\p2-soa-api - Web Deploy\profile.arm.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Properties\serviceDependencies.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Properties\serviceDependencies.p2-soa-api - Web Deploy.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -68,6 +68,11 @@ namespace Repository.DAO
                 return false; // El activo no existe
             }
 
+            if (asset.Status)
+            {
+                return false; // El asset no está asignado a ningún empleado
+            }
+
             asset.Status = true;
 
             var employeeAssets = _context.EmployeesHasAssets.Where(eha => eha.AssetId == assetId).ToList();

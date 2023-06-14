@@ -40,10 +40,9 @@ namespace SOA_P2.Controllers
             return BadRequest("Datos del empleado no válidos.");
         }
 
-        [HttpPatch("{employeeId}")]
+        [HttpPost("{employeeId}")]
         public IActionResult UpdateEmployee(int employeeId, [FromBody] EditEmployeeRequest changes)
-        {
-            var updatedEmployee = _employeeService.UpdateEmployee(employeeId, changes);
+        {            var updatedEmployee = _employeeService.UpdateEmployee(employeeId, changes);
             Console.WriteLine(employeeId);
             if (updatedEmployee != null)
             {

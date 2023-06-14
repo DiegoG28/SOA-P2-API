@@ -55,7 +55,7 @@ namespace SOA_P2.Controllers
             }
         }
 
-        [HttpPatch("{assetId}/release")]
+        [HttpPost("{assetId}/release")]
         public IActionResult ReleaseAsset(int assetId)
         {
             bool released = _assetService.ReleaseAsset(assetId);
