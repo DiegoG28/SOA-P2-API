@@ -31,7 +31,7 @@ namespace Service.Services
             var employeesToRemind = _context.EmployeesHasAssets
                 .Include(eha => eha.Employee.Person)
                 .Include(eha => eha.Asset)
-                .Where(eha => eha.DeliveryDate <= deliveryDateLimit)
+                .Where(eha => eha.DeliveryDate <= deliveryDateLimit && !eha.ReleaseDate.HasValue)
                 .ToList();
 
             _logger.LogInformation("Accediendo a SendReminder");
