@@ -4,6 +4,7 @@ using Domain.Entities.Requests;
 using Domain.Entities.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Repository.Context;
 using Repository.DAO;
 using Service.IServices;
@@ -130,9 +131,10 @@ namespace Service.Services
 
                 var createdEmployee = employeesRepository.CreateEmployee(employee);
 
-                if (newEmployee.Assets != null && newEmployee.Assets.Count > 0)
+                if (!string.IsNullOrEmpty(newEmployee.Assets))
                 {
-                    var employeeAssets = newEmployee.Assets.Select(asset => new EmployeesHasAssets
+                    var assetObjects = JsonConvert.DeserializeObject<List<AssetAssignment>>(newEmployee.Assets);
+                    var employeeAssets = assetObjects.Select(asset => new EmployeesHasAssets
                     {
                         EmployeeId = createdEmployee.Id,
                         AssetId = asset.Id,

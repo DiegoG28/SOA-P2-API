@@ -11,7 +11,7 @@ namespace Domain.Entities.Requests
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
         public DateTime EntryDate { get; set; }
-        public List<AssetAssignment> Assets { get; set; }
+        public string Assets { get; set; }
     }
 
     public class AssetAssignment
