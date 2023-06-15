@@ -16,6 +16,7 @@ namespace Service.Services
         private readonly IConfiguration configuration;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<EmailService> _logger;
+        string htmlTemplate = "<!DOCTYPE html>\n<html>\n<head>\n    <title>Bienvenidos al equipo</title>\n    <style>\n        body {\n            background-color: #f2f2f2;\n            font-family: Arial, sans-serif;\n            text-align: center;\n        }\n\n        h1 {\n            color: #ff6600;\n            font-size: 36px;\n            margin-top: 50px;\n        }\n\n        p {\n            color: #333333;\n            font-size: 20px;\n            margin-top: 30px;\n        }\n\n        .highlight {\n            color: #ff6600;\n            font-weight: bold;\n        }\n    </style>\n</head>\n\n<body>\n    <h1>Estimada/o {name}</h1>\n    <p>\n        Este es un recordatorio para la entrega de\n        <span class=\"highlight\">{asset}</span> antes del <span class=\"highlight\">{deliveryDate}</span>.\n    </p>\n    <p>\n        ¡Gracias!\n    </p>\n</body>\n</html>";
 
         public EmailService(IConfiguration configuration, ApplicationDbContext context, ILogger<EmailService> logger)
         {
@@ -30,7 +31,7 @@ namespace Service.Services
             var employeesToRemind = _context.EmployeesHasAssets
                 .Include(eha => eha.Employee.Person)
                 .Include(eha => eha.Asset)
-                .Where(eha => eha.DeliveryDate <= deliveryDateLimit)
+                .Where(eha => eha.DeliveryDate <= deliveryDateLimit && !eha.ReleaseDate.HasValue)
                 .ToList();
 
             _logger.LogInformation("Accediendo a SendReminder");
@@ -40,7 +41,6 @@ namespace Service.Services
                 string employeeName = employeeAsset.Employee.Person.Name;
                 string assetName = employeeAsset.Asset.Name;
                 string deliveryDate = employeeAsset.DeliveryDate.ToString("dd/MM/yyyy");
-                var htmlTemplate = System.IO.File.ReadAllText("Reminder.html");
                 
                 string employeeEmail = employeeAsset.Employee.Person.Email;
                 string emailSubject = "Recordatorio de entrega de activo";
