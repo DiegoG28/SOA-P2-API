@@ -11,7 +11,7 @@ namespace Service.IServices
 		Employees CreateEmployee(CreateEmployeeRequest request);
 		Employees UpdateEmployee(int employeeId, EditEmployeeRequest changes);
 		string DeleteEmployee(int employeeId);
-        void AddAssetsToEmployee(List<AddEmployeeAssetRequest> employeesAssets);
+        void AddAssetsToEmployee(string employeesAssets);
         string RemoveAssetFromEmployee(int employeeId, int assetId);
 	}
 }

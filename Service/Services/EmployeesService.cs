@@ -90,9 +90,10 @@ namespace Service.Services
             }
         }
 
-        public void AddAssetsToEmployee(List<AddEmployeeAssetRequest> assets)
+        public void AddAssetsToEmployee(string assets)
         {
-            var employeesHasAssets = assets.Select(asset => new EmployeesHasAssets
+            var assetsObjects = JsonConvert.DeserializeObject<List<AddEmployeeAssetRequest>>(assets);
+            var employeesHasAssets = assetsObjects.Select(asset => new EmployeesHasAssets
             {
                 EmployeeId = asset.EmployeeId,
                 AssetId = asset.AssetId,
