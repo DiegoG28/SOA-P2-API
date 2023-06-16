@@ -67,11 +67,11 @@ namespace SOA_P2.Controllers
         }
 
         [HttpPost("Assets")]
-        public IActionResult AddAssetsToEmployee([FromBody] List<AddEmployeeAssetRequest> assets)
+        public IActionResult AddAssetsToEmployee([FromBody] string asset)
         {
             try
             {
-                _employeeService.AddAssetsToEmployee(assets);
+                _employeeService.AddAssetsToEmployee(asset);
                 return Ok("Activos añadidos correctamente al empleado.");
             }
             catch (Exception e)
